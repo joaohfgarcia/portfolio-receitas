@@ -12,12 +12,25 @@
         </div>
       </div>
       <div *ngIf="(receitas$ | async) as receitas">
-        <div class="columns" *ngIf="receitas.length > 0">
+        <div class="columns" *ngIf="receitas.length > 0; else noReceitas">
           <div class="column" *ngFor="let receita of receitas | slice:0:3; let i = index" [attr.data-index]="i">
             <app-card [receita]="receita"></app-card>
           </div>
         </div>
       </div>
+      <ng-template #noReceitas>
+        <div class="columns">
+          <div class="column">
+            <app-placeholder></app-placeholder>
+          </div>
+          <div class="column">
+            <app-placeholder></app-placeholder>
+          </div>
+          <div class="column">
+            <app-placeholder></app-placeholder>
+          </div>
+        </div>
+      </ng-template>
     </div>
   </section>
 </div>
