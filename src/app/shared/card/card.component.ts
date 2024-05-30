@@ -6,12 +6,16 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-image: any;
-title: string | undefined;
-rating: number | undefined;
-description: string | undefined;
-link: string|any[]|null|undefined;
-
-constructor() {}
   @Input() receita: any;
+  isModalVisible: boolean = false;
+
+  constructor() {}
+
+  detalheReceita(): void {
+    this.isModalVisible = true;
+  }
+
+  closeModal(): void {
+    this.isModalVisible = false;
+  }
 }

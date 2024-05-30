@@ -1,6 +1,6 @@
 .warning{
-    color: gray;
-    font-size: 12px;
+    color: red;
+    font-size: 14px;
 }
 
 .chips{
@@ -10,4 +10,8 @@
     background-color: gray; /* Fundo preto com 30% de opacidade */
     border-radius: 10px; /* Bordas arredondadas */
     color: black; /* Cor do texto */
+}
+
+.theme-light {
+    background-color: white !important;
 }

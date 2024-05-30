@@ -1,0 +1,24 @@
+<div class="modal" *ngIf="isVisible">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <p class="title">{{ receita.name }}</p>
+      <img [src]="receita.image" alt="Imagem da receita" style="width: 200px;">
+      <star-rating [starType]="'svg'" [rating]="receita.rating"></star-rating>
+      <p class="chips">{{ receita.difficulty }}</p>
+      <p class="chips">{{ receita.cuisine }}</p>
+      <p class="chips">{{ receita.caloriesPerServing }} cal</p>
+      <hr>
+      <p><b>Ingredientes:</b></p>
+      <ul>
+        <li *ngFor="let item of receita.ingredients">• {{ item }}</li>
+      </ul>
+      <p><b>Instruções:</b></p>
+      <ul>
+        <li *ngFor="let item of receita.instructions">• {{ item }}</li>
+      </ul>
+      <p><b>Tempo de preparo:</b> {{ receita.prepTimeMinutes }}min</p>
+      <p><b>Tempo de cozimento:</b> {{ receita.cookTimeMinutes }}min</p>
+      <p><b>Serve:</b> {{ receita.servings }} pessoas</p>
+    </div>
+  </div>
+  

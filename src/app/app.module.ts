@@ -7,21 +7,25 @@ import { CardComponent } from './shared/card/card.component';
 import { ReceitasComponent } from './views/receitas/receitas.component';
 import { PlaceholderComponent } from './shared/placeholder/placeholder.component';
 import { StarRatingModule } from 'angular-star-rating';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModalComponent } from './shared/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CardComponent,
     ReceitasComponent,
-    PlaceholderComponent
+    PlaceholderComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StarRatingModule.forRoot()
+    StarRatingModule.forRoot(),
+    ReactiveFormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
