@@ -1,0 +1,36 @@
+<div class="theme-light">
+  <section class="section">
+    <div class="container">
+      <h1 class="title">
+        PORTFÓLIO DE RECEITAS
+      </h1>
+      <div class="field">
+        <label class="label">Pesquisar</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Digite o termo para pesquisar">
+          <span class="warning">Lembrete: Precisar ser o nome da receita</span>
+        </div>
+      </div>
+      <div *ngIf="receitas.length > 0">
+        <!-- <p>Carregando receitas...</p> -->
+        <div class="columns">
+          <div class="column">
+            <app-card [receita]="receitas[0]"></app-card>
+          </div>
+          <div class="column">
+            <app-card [receita]="receitas[1]"></app-card>
+          </div>
+          <div class="column">
+            <app-card [receita]="receitas[2]"></app-card>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+</div>
+
+
+
+
+
+  
