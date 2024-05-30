@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CardComponent {
   @Input() receita: any;
+  @Input() isLoading: boolean = false;
   isModalVisible: boolean = false;
 
   constructor() {}

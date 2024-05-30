@@ -11,8 +11,8 @@
           <span class="warning">{{ msgAlerta }}</span>
         </div>
       </div>
-      <div *ngIf="receitas.length > 0">
-        <div class="columns">
+      <div *ngIf="(receitas$ | async) as receitas">
+        <div class="columns" *ngIf="receitas.length > 0">
           <div class="column" *ngFor="let receita of receitas | slice:0:3; let i = index" [attr.data-index]="i">
             <app-card [receita]="receita"></app-card>
           </div>

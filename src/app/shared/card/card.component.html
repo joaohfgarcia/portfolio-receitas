@@ -1,5 +1,5 @@
 <div>
-    <app-placeholder *ngIf="!receita"></app-placeholder>
+    <app-placeholder *ngIf="isLoading"></app-placeholder>
     <div class="card" *ngIf="receita">
       <img [src]="receita.image" alt="Imagem da receita">
       <div class="informacoes">

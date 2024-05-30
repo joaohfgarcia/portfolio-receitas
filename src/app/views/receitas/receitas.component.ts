@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ReceitasService } from 'src/app/services/receitas.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, startWith, tap, finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-receitas',
@@ -11,39 +11,45 @@ import { of } from 'rxjs';
 })
 export class ReceitasComponent implements OnInit {
 
-  receitas: any[] = [];
+  receitas$: Observable<any[]> | undefined;
   searchControl = new FormControl('');
   msgAlerta: string = '';
+  isLoading: boolean = false;
 
   constructor(private receitasService: ReceitasService) { }
 
   ngOnInit(): void {
-    this.loadInitialReceitas();
-
-    this.searchControl.valueChanges.pipe(
-      debounceTime(2000), 
+    this.receitas$ = this.searchControl.valueChanges.pipe(
+      startWith(''),  
+      debounceTime(1000), 
       distinctUntilChanged(), 
       switchMap(value => {
+        this.isLoading = true;
         if (value && value.length >= 4) {
-          return this.receitasService.getReceitas(value); 
+          return this.receitasService.getReceitas(value).pipe(
+            tap(() => this.isLoading = true),
+            finalize(() => this.isLoading = false)
+          );
         } else if (!value || value.length < 4) {
           this.msgAlerta = '';
-          return this.receitasService.getReceitas();
+          return this.receitasService.getReceitas().pipe(
+            tap(() => this.isLoading = true),
+            finalize(() => this.isLoading = false)
+          );
         }
-        return of([]); 
+        return of([]).pipe(
+          finalize(() => this.isLoading = false)
+        );
+      }),
+      switchMap((data: any) => {
+        if (data.recipes && data.recipes.length > 0) {
+          this.msgAlerta = '';
+          return of(data.recipes);
+        } else {
+          this.msgAlerta = '*Receita não encontrada';
+          return of([]);
+        }
       })
-    ).subscribe((data: any) => {
-      if (data.recipes && data.recipes.length > 0) {
-        this.receitas = data.recipes;
-      } else {
-        this.msgAlerta = '*Receita não encontrada';
-      }
-    });
-  }
-
-  private loadInitialReceitas(): void {
-    this.receitasService.getReceitas().subscribe((data: any) => {
-      this.receitas = data.recipes;
-    });
+    );
   }
 }
